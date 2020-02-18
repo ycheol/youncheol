@@ -1,0 +1,22 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using LitJson;
+
+public class Data
+{
+    public string Name;
+    public double Rrn;
+    public string Desc;
+    public int Afflv;
+    public int Affpc;
+
+    public Data(string name, string desc, double rrn, int afflv, int affpc)
+    {
+        Name = name;
+        Rrn = rrn;
+        Desc = desc;
+        Afflv = afflv;
+        Affpc = affpc;
+    }
+}
