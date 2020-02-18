@@ -1,0 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class ListSlot : MonoBehaviour
+{
+    [HideInInspector]
+    public CharProperty cha;
+    public Image image;
+
+    public void SetChar(CharProperty cha)
+    {
+        this.cha = cha;
+        if (cha == null)
+        {
+            image.enabled = false;
+            gameObject.name = "Empty";
+        }
+        else
+        {
+            image.enabled = true;
+            gameObject.name = cha.name;
+            image.sprite = cha.port;
+        }
+    }
+}
