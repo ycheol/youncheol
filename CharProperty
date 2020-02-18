@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[System.Serializable]
+public class CharProperty
+{
+    public string name;//캐릭터 이름
+    public float rrn;//캐릭터 희귀도
+    public int afflv;//캐릭터 호감도 레벨
+    public int affpc;//캐릭터 호감도 퍼센트
+    public string desc;//캐릭터 설명
+    public Sprite port;//캐릭터 아이콘
+    public Animation ani;
+}
