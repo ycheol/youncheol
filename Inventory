@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Inventory : MonoBehaviour
+{
+    public ItemBuffer itemBuffer;
+    public Transform slotRoot;
+    public ShopInven store;
+
+    private List<Slot> slots;
+    void Start(){
+        slots = new List<Slot>();
+        int slotCnt = slotRoot.childCount;//하위 자식 개수
+        for (int i = 0; i < slotCnt; i++)
+        {
+            var slot = slotRoot.GetChild(i).GetComponent<Slot>();
+            if (i < itemBuffer.items.Count)
+            {
+                slot.SetItem(itemBuffer.items[i]);
+                slot.transform.GetChild(1).gameObject.SetActive(true);
+                slot.transform.GetChild(2).gameObject.SetActive(true);
+            }
+            else//아이템 없는 슬롯
+            {
+                slot.GetComponent<UnityEngine.UI.Button>().interactable = false;
+                slot.transform.GetChild(1).gameObject.SetActive(false);
+                slot.transform.GetChild(2).gameObject.SetActive(false);
+            }
+            slot.transform.GetChild(2).GetComponent<Text>();
+            slots.Add(slot);
+        }
+        store.onSlotClick += BuyItem;//함수를 계속 호출한다는 뜻, +=는 그 전에 호출된 함수를 파기하지 않음, =는 그냥 초기화(그 전 호출 함수 파기)
+    }
+    void BuyItem(ItemProperty item){//item은 클릭된 슬롯의 아이템
+        int i = 0 ;
+        var thisSlot = slots.Find(t =>//해당 슬롯 찾기
+        {
+            i++;
+            return t.item == item || t.item.name == item.name ;
+        }) ;
+        if (thisSlot != null)
+        {
+            thisSlot.item.count++;
+            thisSlot.transform.GetChild(2).GetComponent<Text>().text = ""+thisSlot.item.count;
+            i = 0;
+        }
+    }
+}
