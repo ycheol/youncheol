@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using LitJson;
+
+public class JsonM : MonoBehaviour
+{
+    private List<Data> dataList = new List<Data>();
+
+    void start()
+    {
+        Add("P.F.Cat", "Food Lover Cat Customer", 0.6, 0, 0);
+        Add("R.N.Cat", "Cute Lovely Cat Customer", 0.5, 0, 0);
+        Add("H.S.Cat", "Handsome, Clean Cat Customer", 0.3, 0, 0);
+        Add("Y.P.Cat", "Kind Farmer Cat Customer", 0.4, 0, 0);
+        Add("S.Cat", "Sexy Cat Customer", 0.2, 0, 0);
+        Add("O.E.Cat", "Odd Eye Cute Cat Customer", 0.4, 0, 0);
+    }
+
+    void Add(string name, string desc, double rrn, int afflv, int affpc)
+    {
+        DataList.Add(new Data(name, desc, rrn, afflv, affpc, Resources.Load<Sprite>("CharImage/" + name)));
+    }
+
+    public void Save()
+    {
+        Debug.Log("저장");
+        for (int i = 0; i < DataList.Count; i++) Debug.Log(DataList[i].name);
+    }
+
+    public void Load()
+    {
+        Debug.Log("불러오기");
+    }
+}
