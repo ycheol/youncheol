@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class CharList : MonoBehaviour
+{
+    public CharBuffer charBuffer;
+    public Transform slotRoot;
+    private List<ListSlot> slots;
+    string affinity;
+    string rar; 
+    
+    void Start()
+    {
+        slots = new List<ListSlot>();
+        int slotCnt = slotRoot.childCount;
+        for (int i = 0; i < slotCnt; i++)
+        {
+            var slot = slotRoot.GetChild(i).GetComponent<ListSlot>();
+            if (i < charBuffer.chars.Count)
+            {
+                slot.SetChar(charBuffer.chars[i]);
+                slot.transform.GetChild(1).GetComponent<Text>().text = slot.name;
+                rar = slot.cha.rrn.ToString() + "%";
+                slot.transform.GetChild(2).GetComponent<Text>().text = rar;
+                for (int j = 0; j < 5; j++)
+                {
+                    if(slot.cha.aff[j]<100&&slot.cha.aff[j]>0)
+                    {
+                        affinity = "Lv. " + (j+1).ToString() + " " + slot.cha.aff[j].ToString() + "%";
+                        slot.transform.GetChild(3).GetComponent<Text>().text = affinity;
+                        j = 5;
+                    }
+                }
+                slot.transform.GetChild(4).GetComponent<Text>().text = slot.cha.desc;
+            }
+            else
+            {
+                slot.GetComponent<UnityEngine.UI.Button>().interactable = false;
+            }
+            slots.Add(slot);
+        }
+        string str = JsonUtility.ToJson(slot);
+        Debug.Log("ToJson : " + str);
+        var data = JsonUtility.FromJson(str);
+        data.printData();
+    }
+}
